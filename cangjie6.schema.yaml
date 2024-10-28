@@ -16,18 +16,17 @@ schema:
     - jyutping
 
 switches:
-  - name: extended_charset
-    states: [ 通用, 增廣 ]
-    reset: 1
-# 默認開啓Unihan全字集
-  - name: simplification
-    states: [ 漢字, 汉字 ]
-    reset: 0
   - name: ascii_mode
     reset: 0
+    states: ["中文", "西文"]
   - name: full_shape
-    states: [ 半角, 全角 ]
-    reset: 0
+    states: ["半角", "全角"]
+  - name: simplification
+    states: ["漢字", "汉字"]
+  - name: extended_charset
+    states: ["常用", "增廣"]
+  - name: ascii_punct
+    states: ["。，", "．，"]
 
 engine:
   processors:
@@ -79,9 +78,10 @@ speller:
 
 translator:
   dictionary: &dict
-    cangjie6.extended
+    cangjie6.extsimp
 # 若不需鍵詞，請刪去上條中之「.extended」
 # 若需簡體詞，请將上條中之「.extended」改爲「.extsimp」
+  enable_charset_filter: true
   enable_user_dict: true
 # 不想自動調頻的話，將上條中「true」改爲「false」
   enable_sentence: true
